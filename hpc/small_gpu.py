@@ -5,6 +5,7 @@ import logging
 import sys
 
 DEVICE = "cpu" if "c" in sys.argv[1] else "cuda:0"
+FNAME = sys.argv[2]
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -18,12 +19,12 @@ fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._3D,
 t1 = time.time()
 logger.debug("Object Loaded: {:0.3f} seconds".format(t1-t0))
 
-image = imageio.imread('../test/assets/aflw-test.jpg')
+image = imageio.imread(FNAME)
 preds = fa.get_landmarks(image)[-1]
 t2 = time.time()
 logger.debug("First prediction: {:0.3f} seconds".format(t2-t1))
 
-image = imageio.imread('../test/assets/aflw-test.jpg')
+image = imageio.imread(FNAME)
 preds = fa.get_landmarks(image)[-1]
 t3 = time.time()
 logger.debug("Second prediction: {:0.3f} seconds".format(t3-t2))
